@@ -7,4 +7,4 @@ UCSD CSE232B course project XQuery processor
 * [Project Specification](https://cseweb.ucsd.edu/classes/wi17/cse232B-a/notes/xpath-semantics.pdf)
 * [Backend: dealing with XML in Java](https://docs.oracle.com/javase/tutorial/jaxp/dom/index.html)
 * [Front end: ANTLR parser generator](http://www.antlr.org)
-
+* [My personal notes](https://www.evernote.com/pub/zhw176/cse232b)
