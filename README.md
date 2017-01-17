@@ -5,6 +5,7 @@ UCSD CSE232B course project XQuery processor
 * [Course Website](https://cseweb.ucsd.edu/classes/wi17/cse232B-a/)
 * [Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
 * [Project Specification](https://cseweb.ucsd.edu/classes/wi17/cse232B-a/notes/xpath-semantics.pdf)
+* [XQuery Tutorial](https://www.youtube.com/watch?v=LeD6vMK-znY&list=PL3D8fVsfHcA8l2CTTwCMH9D_JFlYosLFa)
 * [Backend: dealing with XML in Java](https://docs.oracle.com/javase/tutorial/jaxp/dom/index.html)
 * [Front end: ANTLR parser generator](http://www.antlr.org)
 * [My personal notes](https://www.evernote.com/pub/zhw176/cse232b)
