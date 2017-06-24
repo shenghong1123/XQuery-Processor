@@ -14,6 +14,7 @@ public class XQueryJoinDetectorBuilder extends XQueryBaseVisitor<MyNodeList> {
 
     @Override
     public MyNodeList visitQuery(@NotNull XQueryParser.QueryContext ctx) {
+        map.put(ctx, false);
         visit(ctx.getChild(0));
         boolean b = map.get(ctx.getChild(0));
         map.put(ctx, b);

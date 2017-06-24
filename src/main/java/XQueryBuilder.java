@@ -38,7 +38,7 @@ public class XQueryBuilder extends XQueryBaseVisitor<MyNodeList> {
 
     @Override
     public MyNodeList visitFLWRClause(@NotNull XQueryParser.FLWRClauseContext ctx) {
-        //System.out.println("Visit the FLWRClause");
+        System.out.println("Visit the FLWRClause");
         HashMap<String, MyNodeList> varTemp = new HashMap<>(varMap); // backup variable map and result map
         HashMap<String, MyNodeList> resTemp = new HashMap<>(resMap);
         MyNodeList curNodeList = ctxMap.get(ctx.getParent());
@@ -49,6 +49,7 @@ public class XQueryBuilder extends XQueryBaseVisitor<MyNodeList> {
         ctxMap.put(ctx, result);
         varMap = varTemp; // recover variable map and result map
         resMap = resTemp;
+        System.out.println("Exit the FLWRClause");
         return result;
     }
 
@@ -75,7 +76,6 @@ public class XQueryBuilder extends XQueryBaseVisitor<MyNodeList> {
             if (nextIn != null) {
                 //System.out.println("Visit the inner In");
                 visit(nextIn);
-
             }
             else {
                 XQueryParser.LetClauseContext let =
@@ -101,6 +101,7 @@ public class XQueryBuilder extends XQueryBaseVisitor<MyNodeList> {
 
     @Override
     public MyNodeList visitJoinClause(@NotNull XQueryParser.JoinClauseContext ctx) {
+        System.err.println("Enter join");
         HashMap<String, MyNodeList> joinMap = new HashMap<>();
 
         MyNodeList result1 = visit(ctx.xq(0)); // get the tuple list from first partition

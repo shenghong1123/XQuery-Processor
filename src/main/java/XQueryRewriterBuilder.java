@@ -38,8 +38,8 @@ public class XQueryRewriterBuilder extends XQueryBaseVisitor<MyNodeList> {
             rewrite.append("join(").append(System.getProperty("line.separator"));
             rewrite.append(m.r + "," + System.getProperty("line.separator"));
             rewrite.append(System.getProperty("line.separator"));
-            rewrite.append(n.r + "," + System.getProperty("line.separator"));
-            rewrite.append(att1 + "," + att2 + ")");
+            rewrite.append(n.r + "," + System.getProperty("line.separator") + System.getProperty("line.separator"));
+            rewrite.append("     " + att1 + "," + att2 + ")");
             result.r = rewrite.toString();
             m.parent = result;
             n.parent = result;
@@ -229,32 +229,32 @@ public class XQueryRewriterBuilder extends XQueryBaseVisitor<MyNodeList> {
         if(xq1.indexOf("$") != -1 && xq2.indexOf("$") != -1) {
             Partition p1 = pMap.get(xq1);
             Partition p2 = pMap.get(xq2);
-            p1.join = p2;
-            p2.joined = p1;
-            if(p1.attribute.containsKey(p2)) p1.attribute.get(p2).add(xq1.substring(1));
-            else {
-                p1.attribute.put(p2, new ArrayList<>());
-                p1.attribute.get(p2).add(xq1.substring(1));
+            if(p1 != p2) {
+                p1.join = p2;
+                p2.joined = p1;
+                if (p1.attribute.containsKey(p2)) p1.attribute.get(p2).add(xq1.substring(1));
+                else {
+                    p1.attribute.put(p2, new ArrayList<>());
+                    p1.attribute.get(p2).add(xq1.substring(1));
+                }
+                if (p2.attribute.containsKey(p1)) p2.attribute.get(p1).add(xq2.substring(1));
+                else {
+                    p2.attribute.put(p1, new ArrayList<>());
+                    p2.attribute.get(p1).add(xq2.substring(1));
+                }
+
+                if (joinMap.containsKey(p1) && joinMap.containsKey(p2)) {
+                    if (!joinMap.get(p1).contains(p2) && !joinMap.get(p2).contains(p1)) joinMap.get(p1).add(p2);
+                } else if (joinMap.containsKey(p1) && !joinMap.containsKey(p2)) {
+                    if (!joinMap.get(p1).contains(p2)) joinMap.get(p1).add(p2);
+                } else if (!joinMap.containsKey(p1) && joinMap.containsKey(p2)) {
+                    if (!joinMap.get(p2).contains(p1)) joinMap.get(p2).add(p1);
+                } else {
+                    joinMap.put(p1, new ArrayList<>());
+                    joinMap.get(p1).add(p2);
+                }
             }
-            if(p2.attribute.containsKey(p1)) p2.attribute.get(p1).add(xq2.substring(1));
-            else {
-                p2.attribute.put(p1, new ArrayList<>());
-                p2.attribute.get(p1).add(xq2.substring(1));
-            }
-            //if(!joinList.contains(p1)) joinList.add(p1);
-            if(joinMap.containsKey(p1) && joinMap.containsKey(p2)) {
-                if(!joinMap.get(p1).contains(p2) && !joinMap.get(p2).contains(p1)) joinMap.get(p1).add(p2);
-            }
-            else if(joinMap.containsKey(p1) && !joinMap.containsKey(p2)) {
-                if(!joinMap.get(p1).contains(p2)) joinMap.get(p1).add(p2);
-            }
-            else if(!joinMap.containsKey(p1) && joinMap.containsKey(p2)) {
-                if(!joinMap.get(p2).contains(p1)) joinMap.get(p2).add(p1);
-            }
-            else {
-                joinMap.put(p1, new ArrayList<>());
-                joinMap.get(p1).add(p2);
-            }
+            else pMap.get(xq1).CondList.add(ctx);
         }
 
         else pMap.get(xq1).CondList.add(ctx); // Assign this condition to corresponding partition

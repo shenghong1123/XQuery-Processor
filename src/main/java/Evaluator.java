@@ -10,7 +10,7 @@ public class Evaluator {
         System.out.print("Please enter your XQuery");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String expr = reader.readLine();
-        String temp = new String();
+        String temp;
         while((temp = reader.readLine()) != null) {
             expr += " ";
             expr += temp;
